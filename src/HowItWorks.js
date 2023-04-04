@@ -10,6 +10,7 @@ import image5 from './assets/images/accepting_free_tier.webp';
 import image6 from './assets/images/optin_fun.webp';
 import image7 from './assets/images/premium.webp';
 import image8 from './assets/images/customer_service.webp';
+import image9 from './assets/images/cancellation_review.webp';
 
 const StyledAccordion = styled(Accordion)`
   background-color: #f5f5f5;
@@ -65,8 +66,27 @@ const HowItWorks = () => {
     },
     {
       title: 'Enjoy Our Free Tier',
-      description: 'Experience AIReply without any commitment. Our free tier offers a generous allowance of text messages, no signup required. Give it a try and discover the benefits of AI-powered texting. If you find AIReply useful, you can always upgrade to a premium plan to access increased messaging limits. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, ensuring that everyone can take advantage of the power of AI-driven communication.',
+      description: 'Experience AIReply without any commitment. Our free tier offers 20 text message responses per week, no signup required. Give it a try and discover the benefits of AI-powered texting. If you find AIReply useful, you can always upgrade to one of our premium plans to access increased messaging limits and remove the weekly restriction. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, ensuring that everyone can take advantage of the power of AI-driven communication.',
       image: image5,
+    },
+    {
+      title: 'Pricing and Subscription Plans',
+      description: (
+        <>
+          Explore our range of subscription plans tailored to fit your messaging needs. Each plan offers different messaging limits and unlocks the weekly restriction.
+          <ul>
+            <li>Basic Plan: 150 text messages per month for $10/month or $25/3 months</li>
+            <li>Standard Plan: 400 text messages per month for $20/month or $50/3 months</li>
+            <li>Premium Plan: 1,000 text messages per month for $40/month or $100/3 months</li>
+          </ul>
+        </>
+      ),
+      image: image7,
+    },
+    {
+      title: 'Cancellation and Refund Policy',
+      description: 'Please note that there are no refunds for our subscription plans. To cancel your subscription, simply text ##CANCEL to our service or email contact@textaireply.com with your phone number and a cancellation request. We recommend reviewing the terms and conditions of your chosen plan carefully before making a purchase.',
+      image: image9,
     },
     {
       title: 'Opt-In Policy & No Spam Guarantee',
@@ -74,13 +94,8 @@ const HowItWorks = () => {
       image: image6,
     },
     {
-      title: 'Upgrade to Premium',
-      description: 'Looking for more? Our premium tiers offer increased messaging limits. Sign up below or click here to explore our pricing options and elevate your texting experience. With a premium plan, you\'ll enjoy dedicated customer support to help you get the most out of AIReply. By investing in a premium package, you can unlock the full potential of our AI-driven communication service and experience the ultimate in convenience and efficiency.',
-      image: image7,
-    },
-    {
       title: 'Have Questions?',
-      description: 'Contact us for more information about AIReply. Our dedicated support team is ready to assist you and ensure you get the most out of our service. Whether you\'re a new user looking for guidance or an experienced user seeking advanced tips, our team is here to help you make the most of AIReply. We are committed to providing exceptional customer service and support, so don\'t hesitate to reach out if you have any questions, concerns, or feedback about our platform.',
+      description: 'Contact us for more information about AIReply. Our dedicated support team is ready to assist you and ensure you get the most out of our service. Whether you\'re a new user looking for guidance, have questions about our plans, or need help with cancellations, our team is here to help. We are committed to providing exceptional customer service and support, so don\'t hesitate to reach out if you have any questions, concerns, or feedback about our platform. Email us at contact@textaireply.com.',
       image: image8,
     },
   ];

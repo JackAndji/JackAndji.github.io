@@ -36,7 +36,8 @@ const CheckoutForm = () => {
     });
 
     const { prices } = await response.json();
-    setPrices(prices.data.sort((a, b) => a.unit_amount - b.unit_amount));
+    setPrices(prices.data);
+
 
     // Set the initial selected tier to the first price ID in the prices array
     if (prices.data.length > 0) {
@@ -75,10 +76,8 @@ const CheckoutForm = () => {
       return;
     }
   
-    // Replace with the appropriate customerId and priceId
     const customerId = await fetchCustomerId(phone);
 
-    // Call your Cloud Function to create a Subscription
     const response = await fetch('https://aireply-stripe-bbvm7acjya-uc.a.run.app', {
       method: 'POST',
       headers: {
@@ -87,13 +86,12 @@ const CheckoutForm = () => {
       body: JSON.stringify({ paymentMethodId, customerId: customerId, tierObj: selectedTier.value, phone: phone }),
     });
 
-    const { subscription, error } = await response.json();
+    const { error } = await response.json();
   
     if (error) {
       console.error('Subscription failed:', error);
       setError(error);
     } else {
-      console.log('Subscription successful:', subscription);
       setSucceeded('Welcome to TextAIReply! You should be receiving a text message shortly to opt-in.');
       setPhone('');
       setSelectedTier({
@@ -101,6 +99,9 @@ const CheckoutForm = () => {
         name: prices.data[0].product.name,
         interval: prices.data[0].recurring.interval,
       });
+
+      // Clear the card fields
+      elements.getElement(CardElement).clear();
     }
   
     setProcessing(false);
@@ -123,11 +124,11 @@ const CheckoutForm = () => {
   }, []);
 
   const tierOptions = prices.map((price) => ({
-    label: `${price.product.name} - ${(price.unit_amount / 100).toFixed(2)} / ${price.recurring.interval}`,
+    label: `${price.product.name} - ${(price.unit_amount / 100).toFixed(2)} / ${price.recurring.interval_count !== 1 ? price.recurring.interval_count : ''} ${price.recurring.interval}`,
     value: {
       id: price.id,
       name: price.product.name,
-      interval: price.recurring.interval,
+      interval: price.recurring.interval_count,
     },
   }));
 
