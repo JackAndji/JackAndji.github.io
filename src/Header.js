@@ -7,7 +7,6 @@ import backgroundImage from './assets/images/AI-powered_chatbot.webp';
 const Logo = styled(Typography)`
   font-size: 2rem;
   font-weight: bold;
-  text-transform: uppercase;
 `;
 
 const Tagline = styled(Typography)`
