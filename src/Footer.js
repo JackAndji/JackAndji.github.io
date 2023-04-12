@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import { NavLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const StyledFooter = styled(Box)`
   background-color: #000;
@@ -9,7 +9,7 @@ const StyledFooter = styled(Box)`
   padding: 2rem 0;
 `;
 
-const FooterLink = styled(NavLink)`
+const FooterLink = styled(RouterLink)`
   color: inherit;
   text-decoration: none;
   &:hover {
