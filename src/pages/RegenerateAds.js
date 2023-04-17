@@ -44,7 +44,7 @@ function RegenerateAds() {
     const urlParams = new URLSearchParams(window.location.search);
     const encodedPhoneNumber = urlParams.get('ad_id');
     if (encodedPhoneNumber) {
-      setPhoneNumber(atob(encodedPhoneNumber));
+      setPhoneNumber(Buffer.from(encodedPhoneNumber, 'base64').toString('ascii'));
     }
   }, []);
 
@@ -116,7 +116,7 @@ function RegenerateAds() {
             ) : (
               <p style={{textAlign:'center'}}>
                 Thank you for viewing our ads page. Unfortunately, we could not gather your phone number. Please
-                text "Regenerate" to 12018449959, and use the link provided to claim your reward.
+                text "REGENERATE" to 12018449959, and use the link provided to claim your reward.
               </p>
             )}
           </Grid>
