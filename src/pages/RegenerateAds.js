@@ -41,11 +41,12 @@ function RegenerateAds() {
   }, []);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const encodedPhoneNumber = urlParams.get('ad_id');
-    console.log('encodedPhoneNumber', encodedPhoneNumber);
+    const fullUrl = window.location.href;
+    const urlParams = new URLSearchParams(fullUrl.substring(fullUrl.indexOf("?")));
+    const encodedPhoneNumber = urlParams.get("ad_id");
+    console.log("encodedPhoneNumber", encodedPhoneNumber);
     if (encodedPhoneNumber) {
-      setPhoneNumber(Buffer.from(encodedPhoneNumber, 'base64').toString('ascii'));
+      setPhoneNumber(Buffer.from(encodedPhoneNumber, "base64").toString("ascii"));
     }
   }, []);
 
