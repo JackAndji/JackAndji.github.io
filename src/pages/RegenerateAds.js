@@ -43,6 +43,7 @@ function RegenerateAds() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const encodedPhoneNumber = urlParams.get('ad_id');
+    console.log('encodedPhoneNumber', encodedPhoneNumber);
     if (encodedPhoneNumber) {
       setPhoneNumber(Buffer.from(encodedPhoneNumber, 'base64').toString('ascii'));
     }
