@@ -46,7 +46,7 @@ function RegenerateAds() {
     const encodedPhoneNumber = urlParams.get("ad_id");
     console.log("encodedPhoneNumber", encodedPhoneNumber);
     if (encodedPhoneNumber) {
-      setPhoneNumber(Buffer.from(encodedPhoneNumber, "base64").toString("ascii"));
+      setPhoneNumber(atob(encodedPhoneNumber));
     }
   }, []);
 
