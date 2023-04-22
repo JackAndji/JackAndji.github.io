@@ -1,25 +1,27 @@
 {
   "files": {
     "main.css": "/static/css/main.71a28d18.css",
-    "main.js": "/static/js/main.17a2f1dc.js",
+    "main.js": "/static/js/main.c4595d8e.js",
     "static/js/787.69e172c4.chunk.js": "/static/js/787.69e172c4.chunk.js",
     "static/media/optin_fun.webp": "/static/media/optin_fun.08d38a79d8b714d2a02a.webp",
     "static/media/text_message.webp": "/static/media/text_message.8c197c95b2e161d3c3f7.webp",
     "static/media/AI-responding_text-message.webp": "/static/media/AI-responding_text-message.6e38464d02c40013f2a8.webp",
     "static/media/AI-powered_chatbot.webp": "/static/media/AI-powered_chatbot.0760f68025d8b5a65c63.webp",
     "static/media/cancellation_review.webp": "/static/media/cancellation_review.ebd0c2ae000179d051cc.webp",
+    "static/media/commands.webp": "/static/media/commands.a1a80a56570d53f05d7b.webp",
     "static/media/accepting_free_tier.webp": "/static/media/accepting_free_tier.02600ee2cfeef7a11fa2.webp",
+    "static/media/register_email.webp": "/static/media/register_email.d2ae9e529eb27f45ed39.webp",
     "static/media/mobile_phone.webp": "/static/media/mobile_phone.416d37878ae02997cc7b.webp",
     "static/media/chatbot_conversation.webp": "/static/media/chatbot_conversation.dff92859498c3d7feac7.webp",
     "static/media/premium.webp": "/static/media/premium.4f59e77f6322f4d90a42.webp",
     "static/media/customer_service.webp": "/static/media/customer_service.d281e60f3f50d1081338.webp",
     "index.html": "/index.html",
     "main.71a28d18.css.map": "/static/css/main.71a28d18.css.map",
-    "main.17a2f1dc.js.map": "/static/js/main.17a2f1dc.js.map",
+    "main.c4595d8e.js.map": "/static/js/main.c4595d8e.js.map",
     "787.69e172c4.chunk.js.map": "/static/js/787.69e172c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.71a28d18.css",
-    "static/js/main.17a2f1dc.js"
+    "static/js/main.c4595d8e.js"
   ]
 }
