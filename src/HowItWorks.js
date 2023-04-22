@@ -11,6 +11,8 @@ import image6 from './assets/images/optin_fun.webp';
 import image7 from './assets/images/premium.webp';
 import image8 from './assets/images/customer_service.webp';
 import image9 from './assets/images/cancellation_review.webp';
+import image10 from './assets/images/register_email.webp';
+import image11 from './assets/images/commands.webp';
 
 const StyledAccordion = styled(Accordion)`
   background-color: #f5f5f5;
@@ -60,13 +62,39 @@ const HowItWorks = () => {
       image: image3,
     },
     {
+      title: 'Email Registration & Enhanced Security',
+      description: 'By registering with an email address, you add an extra layer of security to your account. In case you lose access to your phone number, your email address serves as a backup for account recovery. Simply contact our customer service team, and they\'ll assist you in regaining access to your account using your registered email. This feature ensures that your account remains secure and that you can continue enjoying our services without any interruptions.',
+      image: image10,
+    },
+    {
       title: 'No VOIP Numbers Allowed',
       description: 'To maintain the quality and integrity of our service, we do not support the use of VOIP numbers. AIReply is designed for use with genuine mobile numbers only. This policy helps us prevent potential misuse and maintain a high level of service for our users, ensuring you can enjoy AIReply with confidence and trust. By restricting usage to authentic mobile numbers, we can more effectively safeguard user privacy and security, while also fostering a respectful and reliable communication environment.',
       image: image4,
     },
     {
+      title: 'Text Commands for Quick Access',
+      description: (
+        <>
+          "Our service offers a variety of single-word text commands for quick access to essential features and information:"
+          <ul>
+            <li>COMMANDS: View these commands via text.</li>
+            <li>STOP: Stop all messages from our service.</li>
+            <li>HELP: Receive help information.</li>
+            <li>INFO: Get additional information about your account.</li>
+            <li>REGISTER: Register your email address to your phone number for additional security and recovery.</li>
+            <li>REGENERATE: Visit our ad page to receive 10 more messages (up to your tier's max limit).</li>
+            <li>CONNECT: Connect with your API key to access GPT-3 or GPT-4 responses.</li>
+            <li>UPGRADE: Subscribe to our subscription plans.</li>
+            <li>##CANCEL: Cancel your subscription.</li>
+          </ul>
+          "These commands allow you to effortlessly interact with our service and access key features at your fingertips."
+        </>
+      ),
+      image: image11,
+    },
+    {
       title: 'Enjoy Our Free Tier',
-      description: 'Experience AIReply without any commitment. Our free tier offers 20 text message responses per week, no signup required. Give it a try and discover the benefits of AI-powered texting. If you find AIReply useful, you can always upgrade to one of our premium plans to access increased messaging limits and remove the weekly restriction. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, ensuring that everyone can take advantage of the power of AI-driven communication.',
+      description: 'Experience AIReply without any commitment. Our free tier offers 10 text message responses per week, no signup required. Give it a try and discover the benefits of AI-powered texting. If you find AIReply useful, you can always upgrade to one of our premium plans to access increased messaging limits and remove the weekly restriction. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, ensuring that everyone can take advantage of the power of AI-driven communication.',
       image: image5,
     },
     {
@@ -75,9 +103,8 @@ const HowItWorks = () => {
         <>
           Explore our range of subscription plans tailored to fit your messaging needs. Each plan offers different messaging limits and unlocks the weekly restriction.
           <ul>
-            <li>Basic Plan: 150 text messages per month for $10/month or $25/3 months</li>
-            <li>Standard Plan: 400 text messages per month for $20/month or $50/3 months</li>
-            <li>Premium Plan: 1,000 text messages per month for $40/month or $100/3 months</li>
+            <li>Basic Plan: 150 text messages per month for $7.99/month</li>
+            <li>Premium Plan: 1,000 text messages per month for $19.99/month</li>
           </ul>
         </>
       ),
