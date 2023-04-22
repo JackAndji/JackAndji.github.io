@@ -5,10 +5,14 @@ import 'react-phone-input-2/lib/style.css';
 import PhoneInput from 'react-phone-input-2';
 
 const CheckoutForm = () => {
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const adId = urlSearchParams.get('ad_id');
+  const decodedPhone = adId ? Buffer.from(adId, 'base64').toString() : '';
+
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [succeeded, setSucceeded] = useState(null);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(decodedPhone);
   const [email, setEmail] = useState('');
   const [selectedTier, setSelectedTier] = useState({});
   const [prices, setPrices] = useState([]);
