@@ -78,14 +78,14 @@ function Commands() {
       phoneNumber: encodedPhoneNumber,
       action,
     };
-
+  
     if (action === 'register') {
       data.email = btoa(email);
     } else if (action === 'connect') {
       data.apiKey = btoa(apiKey);
       data.apiVersion = apiVersion;
     }
-
+  
     const response = await fetch('https://aireply-command-bbvm7acjya-uc.a.run.app', {
       method: 'POST',
       headers: {
@@ -100,11 +100,29 @@ function Commands() {
       }),
     });
   
+    const jsonResponse = await response.json();
+  
     // Handle the response
     if (response.ok) {
-      alert('You have successfully claimed 10 additional messages!');
+      switch (action) {
+        case 'connect':
+          alert('You have successfully connected your OpenAI API key!');
+          break;
+        case 'regenerate':
+          alert('You have successfully claimed 10 additional messages!');
+          break;
+        case 'register':
+          alert('You have successfully registered your email address!');
+          break;
+      }
     } else {
-      alert('An error occurred while claiming your messages. Please try again later.');
+      if (jsonResponse.error === 'Invalid API key') {
+        alert('Invalid API key. Please check your API key and try again.');
+      } else if (jsonResponse.error === 'API key does not have access to GPT-4') {
+        alert('Your API key does not have access to GPT-4. We have connected your API key with GPT-3. If you feel this is an error please email contact@textaireply.com.');
+      } else {
+        alert('An error occurred while processing your action. Please try again later.');
+      }
     }
   };
 
