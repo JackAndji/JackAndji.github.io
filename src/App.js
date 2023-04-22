@@ -5,7 +5,7 @@ import Home from './Home';
 import Footer from './Footer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
-import RegenerateAds from './pages/RegenerateAds';
+import Commands from './pages/Commands';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<Home />} index />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-          <Route path="/regenerate-ads" element={<RegenerateAds />} />
+          <Route path="/commands" element={<Commands />} />
         </Routes>
 
         {/* Footer */}
