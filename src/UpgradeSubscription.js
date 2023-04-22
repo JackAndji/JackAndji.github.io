@@ -9,10 +9,9 @@ const UpgradeSubscription = () => {
   return (
     <div>
       <h2>Upgrade Subscription</h2>
-      <h3>Coming Soon!</h3>
-      {/* <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise}>
         <CheckoutForm />
-      </Elements> */}
+      </Elements>
     </div>
   );
 };

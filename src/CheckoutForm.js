@@ -9,18 +9,19 @@ const CheckoutForm = () => {
   const [processing, setProcessing] = useState(false);
   const [succeeded, setSucceeded] = useState(null);
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [selectedTier, setSelectedTier] = useState({});
   const [prices, setPrices] = useState([]);
   const stripe = useStripe();
   const elements = useElements();
 
-  const fetchCustomerId = async (phone) => {
+  const fetchCustomerId = async (phone, email) => {
     const response = await fetch('https://aireply-create-bbvm7acjya-uc.a.run.app', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ phone }),
+      body: JSON.stringify({ phone: phone ? btoa(phone) : undefined, email: email ? btoa(email) : undefined }),
     });
   
     const { customerId } = await response.json();
@@ -76,14 +77,14 @@ const CheckoutForm = () => {
       return;
     }
   
-    const customerId = await fetchCustomerId(phone);
+    const customerId = await fetchCustomerId(phone, email);
 
     const response = await fetch('https://aireply-stripe-bbvm7acjya-uc.a.run.app', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ paymentMethodId, customerId: customerId, tierObj: selectedTier.value, phone: phone }),
+      body: JSON.stringify({ paymentMethodId, customerId: customerId, tierObj: selectedTier.value, phone: phone ? btoa(phone) : undefined, email: email ? btoa(email) : undefined }),
     });
 
     const { error } = await response.json();
@@ -113,6 +114,10 @@ const CheckoutForm = () => {
 
   const handlePhoneChange = (value) => {
     setPhone(value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handleTierChange = (selectedOption) => {
@@ -188,6 +193,24 @@ const CheckoutForm = () => {
     marginBottom: '20px',
   }
 
+  const emailInputStyles = {
+    position: 'relative',
+    fontSize: '14px',
+    letterSpacing: '.01rem',
+    marginTop: '0 !important',
+    marginBottom: '0 !important',
+    paddingInline: '8px',
+    marginLeft: '0',
+    background: '#FFFFFF',
+    border: '1px solid #CACACA',
+    borderRadius: '5px',
+    lineHeight: '25px',
+    height: '35px',
+    outline: 'none',
+    width: '300px',
+    boxSizing: 'border-box',
+  };
+
   return (
     <form onSubmit={handleSubmit} style={formStyle}>
       <div style={formGroupStyle}>
@@ -198,6 +221,18 @@ const CheckoutForm = () => {
           onChange={handlePhoneChange}
           placeholder="Phone Number (VOIP numbers are prohibited)"
           required
+        />
+      </div>
+
+      <div style={formGroupStyle}>
+        <label htmlFor="email">Email Address (optional, for account recovery):</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          style={emailInputStyles}
+          onChange={handleEmailChange}
+          placeholder="Email Address"
         />
       </div>
 
