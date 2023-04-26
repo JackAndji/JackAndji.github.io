@@ -57,7 +57,7 @@ function Commands() {
     console.log("action", action);
     if (encodedPhoneNumber) {
       setEncodedPhoneNumber(encodedPhoneNumber);
-      setPhoneNumber(atob(encodedPhoneNumber));
+      setPhoneNumber(decodeURI(encodedPhoneNumber));
     }
     if (action) {
       setAction(action);
@@ -80,9 +80,9 @@ function Commands() {
     };
   
     if (action === 'register') {
-      data.email = btoa(email);
+      data.email = encodeURIComponent(email);
     } else if (action === 'connect') {
-      data.apiKey = btoa(apiKey);
+      data.apiKey = encodeURIComponent(apiKey);
       data.apiVersion = apiVersion;
     }
   
@@ -94,8 +94,8 @@ function Commands() {
       body: JSON.stringify({
         phoneNumber: encodedPhoneNumber,
         action: data.action,
-        email: data.email ? btoa(data.email) : undefined,
-        apiKey: data.apiKey ? btoa(data.apiKey) : undefined,
+        email: data.email ? data.email : undefined,
+        apiKey: data.apiKey ? data.apiKey : undefined,
         apiVersion: data.apiVersion,
       }),
     });
@@ -104,6 +104,7 @@ function Commands() {
   
     // Handle the response
     if (response.ok) {
+      // eslint-disable-next-line default-case
       switch (action) {
         case 'connect':
           alert('You have successfully connected your OpenAI API key!');
