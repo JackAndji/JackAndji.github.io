@@ -35,20 +35,6 @@ function Commands() {
   const [action, setAction] = useState('');
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8540522665805455';
-    script.async = true;
-    script.setAttribute('crossorigin', 'anonymous');
-    document.head.appendChild(script);
-
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  useEffect(() => {
     const fullUrl = window.location.href;
     const urlParams = new URLSearchParams(fullUrl.substring(fullUrl.indexOf("?")));
     const encodedPhoneNumber = urlParams.get("ad_id");
