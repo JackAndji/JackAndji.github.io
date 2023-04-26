@@ -75,7 +75,7 @@ const HowItWorks = () => {
       title: 'Text Commands for Quick Access',
       description: (
         <>
-          "Our service offers a variety of single-word text commands for quick access to essential features and information:"
+          Our service offers a variety of single-word text commands for quick access to essential features and information:
           <ul>
             <li>COMMANDS: View these commands via text.</li>
             <li>STOP: Stop all messages from our service.</li>
@@ -87,7 +87,7 @@ const HowItWorks = () => {
             <li>UPGRADE: Subscribe to our subscription plans.</li>
             <li>##CANCEL: Cancel your subscription.</li>
           </ul>
-          "These commands allow you to effortlessly interact with our service and access key features at your fingertips."
+          These commands allow you to effortlessly interact with our service and access key features at your fingertips.
         </>
       ),
       image: image11,
