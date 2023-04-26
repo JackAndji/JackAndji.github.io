@@ -57,7 +57,7 @@ function Commands() {
     console.log("action", action);
     if (encodedPhoneNumber) {
       setEncodedPhoneNumber(encodedPhoneNumber);
-      setPhoneNumber(decodeURI(atob(encodedPhoneNumber)));
+      setPhoneNumber(atob(decodeURI(encodedPhoneNumber)));
     }
     if (action) {
       setAction(action);
