@@ -39,10 +39,8 @@ function Commands() {
     const urlParams = new URLSearchParams(fullUrl.substring(fullUrl.indexOf("?")));
     const encodedPhoneNumber = urlParams.get("ad_id");
     const action = urlParams.get("action");
-    console.log("encodedPhoneNumber", encodedPhoneNumber);
-    console.log("action", action);
     if (encodedPhoneNumber) {
-      setEncodedPhoneNumber(encodedPhoneNumber);
+      setEncodedPhoneNumber(decodeURI(encodedPhoneNumber));
       setPhoneNumber(atob(decodeURI(encodedPhoneNumber)));
     }
     if (action) {
@@ -66,9 +64,9 @@ function Commands() {
     };
   
     if (action === 'register') {
-      data.email = encodeURIComponent(email);
+      data.email = btoa(email);
     } else if (action === 'connect') {
-      data.apiKey = encodeURIComponent(apiKey);
+      data.apiKey = btoa(apiKey);
       data.apiVersion = apiVersion;
     }
   
