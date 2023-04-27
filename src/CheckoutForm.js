@@ -7,7 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 const CheckoutForm = () => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const adId = urlSearchParams.get('ad_id');
-  const decodedPhone = adId ? Buffer.from(adId, 'base64').toString() : '';
+  const decodedPhone = adId ? atob(decodeURI(adId)) : '';
 
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
