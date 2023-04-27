@@ -162,7 +162,7 @@ function Commands() {
       )
     } else if (action === 'connect') {
       return (
-        email && isClaimButtonEnabled ? (
+        apiKey && isClaimButtonEnabled ? (
           <div>
             <p>Your API key will be registered to phone number: {phoneNumber}</p>
             <p>If this is not your phone number, please text "CONNECT" to 12018449959, and use the link provided to connect your API key.</p>
