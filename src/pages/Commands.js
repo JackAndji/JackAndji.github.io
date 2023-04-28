@@ -1,28 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid } from '@mui/material';
-import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-const StyledAdSlot = styled('ins')`
-  display: block;
-`;
-
-const StyledTopBanner = styled(StyledAdSlot)`
-  width: 100%;
-  height: 90px;
-`;
-
-const StyledSidebarAd = styled(StyledAdSlot)`
-  width: 160px;
-  height: 600px;
-`;
-
-const StyledBottomBanner = styled(StyledAdSlot)`
-  width: 100%;
-  height: 90px;
-`;
 
 function Commands() {
   const [timer, setTimer] = useState(30);
@@ -93,9 +73,9 @@ function Commands() {
         case 'connect':
           alert('You have successfully connected your OpenAI API key!');
           break;
-        case 'regenerate':
-          alert('You have successfully claimed 10 additional messages!');
-          break;
+        // case 'regenerate':
+        //   alert('You have successfully claimed 10 additional messages!');
+        //   break;
         case 'register':
           alert('You have successfully registered your email address!');
           break;
@@ -112,7 +92,7 @@ function Commands() {
   };
 
   const renderContent = () => {
-    if (action === 'regenerate') {
+    /*if (action === 'regenerate') {
       return (
         isClaimButtonEnabled ? (
           <div>
@@ -130,7 +110,7 @@ function Commands() {
           </div>
         )
       )
-    } else if (action === 'register') {
+    } else */if (action === 'register') {
       return (
         email && isClaimButtonEnabled ? (
           <div>
@@ -207,8 +187,8 @@ function Commands() {
     } else {
       return (
         <div style={{textAlign:'center'}}>
-          <p>Thank you for viewing our ads page. Unfortunately, we could not gather your phone number or action.</p>
-          <p>This page can be used to "REGISTER" you email address, "CONNECT" your own OpenAI API key, or "REGENERATE" extra text messages.</p>
+          <p>Welcome to our Commands page. Unfortunately, we could not gather your phone number or command.</p>
+          <p>This page can be used to "REGISTER" your email address or "CONNECT" your own OpenAI API key.</p>
           <p>Please text any of these commands to 12018449959, and use the link provided. If you are still having issues, please email contact@textaireply.com for further assistance.</p>
         </div>
       )
@@ -218,56 +198,9 @@ function Commands() {
   return (
     <Box py={5}>
       <Container>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12}>
-            <StyledTopBanner
-              className="adsbygoogle"
-              data-ad-client="ca-pub-8540522665805455"
-              data-ad-slot="1951504556"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
-          </Grid>
-  
-          <Grid item xs={12} md={3}>
-            <StyledSidebarAd
-              className="adsbygoogle"
-              data-ad-client="ca-pub-8540522665805455"
-              data-ad-slot="5758849633"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
-          </Grid>
-  
+        <Grid container spacing={2} justifyContent="center">  
           <Grid item xs={12} md={6}>
-            <StyledAdSlot
-              className="adsbygoogle"
-              data-ad-client="ca-pub-8540522665805455"
-              data-ad-slot="2063147204"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
             {renderContent()}
-          </Grid>
-  
-          <Grid item xs={12} md={3}>
-            <StyledSidebarAd
-              className="adsbygoogle"
-              data-ad-client="ca-pub-8540522665805455"
-              data-ad-slot="9219620484"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
-          </Grid>
-  
-          <Grid item xs={12}>
-            <StyledBottomBanner
-              className="adsbygoogle"
-              data-ad-client="ca-pub-8540522665805455"
-              data-ad-slot="6162174315"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
           </Grid>
         </Grid>
       </Container>

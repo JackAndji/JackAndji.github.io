@@ -82,7 +82,7 @@ const HowItWorks = () => {
             <li>HELP: Receive help information.</li>
             <li>INFO: Get additional information about your account.</li>
             <li>REGISTER: Register your email address to your phone number for additional security and recovery.</li>
-            <li>REGENERATE: Visit our ad page to receive 10 more messages (up to your tier's max limit).</li>
+            {/* <li>REGENERATE: Visit our ad page to receive 10 more messages (up to your tier's max limit).</li> */}
             <li>CONNECT: Connect with your API key to access GPT-3 or GPT-4 responses.</li>
             <li>UPGRADE: Subscribe to our subscription plans.</li>
             <li>##CANCEL: Cancel your subscription.</li>
