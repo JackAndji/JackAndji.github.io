@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Typography } from '@mui/material';
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -19,12 +20,20 @@ const CARD_ELEMENT_OPTIONS = {
   },
 };
 
+const titleStyle = {
+  marginBottom: '20px',
+};
+
 const formStyle = {
   display: 'flex',
   flexDirection: 'column',
   width: '400px',
   margin: '0 auto',
 };
+
+const textStyle = {
+  marginTop: 0,
+}
 
 const formGroupStyle = {
   marginBottom: '20px',
@@ -146,9 +155,10 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
 
   return (
     <form onSubmit={handleSubmit} style={formStyle}>
-      <p>Update your payment information for phone number: {phoneNumber}</p>
-      <p>If this is not your phone number, please text "PAYMENT" to 12018449959, and use the link provided to update your payment information.</p>
-      <p>If you are still getting the wrong number, please email contact@textaireply.com.</p>
+      <Typography variant="h6" style={titleStyle}>Update Payment Information</Typography>
+      <p style={textStyle}>Update your payment information for phone number: {phoneNumber}</p>
+      <p style={textStyle}>If this is not your phone number, please text "PAYMENT" to 12018449959, and use the link provided to update your payment information.</p>
+      <p style={textStyle}>If you are still getting the wrong number, please email contact@textaireply.com.</p>
       <div style={formGroupStyle}>
         <label style={labelStyle}>Card Information</label>
         <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
