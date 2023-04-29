@@ -1,11 +1,72 @@
 import React, { useEffect, useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Container, Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      color: '#32325d',
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: 'antialiased',
+      fontSize: '16px',
+      '::placeholder': {
+        color: '#aab7c4',
+      },
+    },
+    invalid: {
+      color: '#fa755a',
+      iconColor: '#fa755a',
+    },
+  },
+};
+
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '400px',
+  margin: '0 auto',
+};
+
+const formGroupStyle = {
+  marginBottom: '20px',
+};
+
+const labelStyle = {
+  marginBottom: '10px',
+};
+
+const buttonStyle = {
+  backgroundColor: '#6772e5',
+  color: '#ffffff',
+  padding: '8px 12px',
+  fontSize: '16px',
+  lineHeight: '1.6',
+  fontWeight: '600',
+  letterSpacing: '0.1em',
+  textTransform: 'uppercase',
+  cursor: 'pointer',
+  border: 'none',
+};
+
+const errorMessageStyle = {
+  color: '#fa755a',
+  marginBottom: '20px',
+};
+
+const succeededMessageStyle = {
+  color: '#2ecc71',
+  marginBottom: '20px',
+}
+
 function Commands() {
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(0);
   const [isClaimButtonEnabled, setIsClaimButtonEnabled] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [encodedPhoneNumber, setEncodedPhoneNumber] = useState(null);
@@ -13,6 +74,11 @@ function Commands() {
   const [apiKey, setApiKey] = useState('');
   const [apiVersion, setApiVersion] = useState('3');
   const [action, setAction] = useState('');
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [succeeded, setSucceeded] = useState(null);
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     const fullUrl = window.location.href;
@@ -37,7 +103,87 @@ function Commands() {
     }
   }, [timer]);
 
-  const handleAction = async () => {
+  const fetchCustomerId = async phone => {
+    const response = await fetch('https://aireply-create-bbvm7acjya-uc.a.run.app', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone: phone ? btoa(phone) : undefined, email: undefined }),
+    });
+  
+    const { customerId } = await response.json();
+    return customerId;
+  };
+
+  const handleChange = (event) => {
+    setError(event.error ? event.error.message : '');
+  };
+
+  const updatePaymentMethod = async (customerId, paymentMethodId) => {
+    const response = await fetch('https://aireply-command-bbvm7acjya-uc.a.run.app', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phoneNumber: encodedPhoneNumber,
+        action: action,
+        customerId: customerId,
+        paymentMethodId: paymentMethodId
+      }),
+    });
+    const { error } = await response.json();
+  
+    if (error) {
+      setError(error);
+      return false;
+    }
+  
+    return true;
+  };
+
+  const createPaymentMethod = async () => {
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+    });
+  
+    if (error) {
+      setError(error.message);
+      return null;
+    }
+  
+    return paymentMethod.id;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    setProcessing(true);
+  
+    // Create a payment method
+    const paymentMethodId = await createPaymentMethod();
+    if (!paymentMethodId) {
+      setProcessing(false);
+      return;
+    }
+  
+    const customerId = await fetchCustomerId(phoneNumber);
+  
+    const updated = await updatePaymentMethod(customerId, paymentMethodId);
+  
+    if (updated) {
+      setSucceeded('Your payment information has been updated successfully.');
+  
+      // Clear the card fields
+      elements.getElement(CardElement).clear();
+    }
+  
+    setProcessing(false);
+  };
+
+  const handleAction = async event => {
     let data = {
       phoneNumber: encodedPhoneNumber,
       action,
@@ -58,8 +204,8 @@ function Commands() {
       body: JSON.stringify({
         phoneNumber: encodedPhoneNumber,
         action: data.action,
-        email: data.email ? data.email : undefined,
-        apiKey: data.apiKey ? data.apiKey : undefined,
+        email: data.email ? data.email : false,
+        apiKey: data.apiKey ? data.apiKey : false,
         apiVersion: data.apiVersion,
       }),
     });
@@ -184,6 +330,26 @@ function Commands() {
           </div>
         )
       )
+    } else if (action === 'payment') {
+      return (        
+        <Elements stripe={stripePromise}>
+          <p>Update your payment information for phone number: {phoneNumber}</p>
+          <p>If this is not your phone number, please text "PAYMENT" to 12018449959, and use the link provided to update your payment information.</p>
+          <p>If you are still getting the wrong number, please email contact@textaireply.com.</p>
+
+          <form onSubmit={handleSubmit} style={formStyle}>
+            <div style={formGroupStyle}>
+              <label style={labelStyle}>Card Information</label>
+              <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
+            </div>
+            {error && <div style={errorMessageStyle}>{error}</div>}
+            {succeeded && <div style={succeededMessageStyle}>{succeeded}</div>}
+            <button disabled={!stripe || processing || succeeded} style={buttonStyle}>
+              {processing ? 'Processing...' : 'Update'}
+            </button>
+          </form>
+        </Elements>
+      );
     } else {
       return (
         <div style={{textAlign:'center'}}>
