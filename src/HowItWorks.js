@@ -82,9 +82,12 @@ const HowItWorks = () => {
             <li>HELP: Receive help information.</li>
             <li>INFO: Get additional information about your account.</li>
             <li>REGISTER: Register your email address to your phone number for additional security and recovery.</li>
+            <li>UNREGISTER: Unregister your email address from your phone number.</li>
             {/* <li>REGENERATE: Visit our ad page to receive 10 more messages (up to your tier's max limit).</li> */}
             <li>CONNECT: Connect with your API key to access GPT-3 or GPT-4 responses.</li>
+            <li>DISCONNECT: Disconnect your API key.</li>
             <li>UPGRADE: Subscribe to our subscription plans.</li>
+            <li>PAYMENT: Update your subscription payment information.</li>
             <li>##CANCEL: Cancel your subscription.</li>
           </ul>
           These commands allow you to effortlessly interact with our service and access key features at your fingertips.
