@@ -80,42 +80,35 @@ function Commands() {
       data.apiVersion = apiVersion;
     }
 
-    const response = await fetch('https://aireply-command-bbvm7acjya-uc.a.run.app', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phoneNumber: encodedPhoneNumber,
-        action: data.action,
-        email: data.email ? data.email : false,
-        apiKey: data.apiKey ? data.apiKey : false,
-        apiVersion: data.apiVersion,
-      }),
-    });
+    try {
+      const response = await fetch('https://aireply-command-bbvm7acjya-uc.a.run.app', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber: encodedPhoneNumber,
+          action: data.action,
+          email: data.email ? data.email : false,
+          apiKey: data.apiKey ? data.apiKey : false,
+          apiVersion: data.apiVersion,
+        }),
+      });
 
-    const jsonResponse = await response.json();
+      const jsonResponse = await response.json();
 
-    // Handle the response
-    if (response.ok) {
-      // eslint-disable-next-line default-case
-      switch (action) {
-        case 'connect':
-          setSucceeded('You have successfully connected your OpenAI API key!');
-          break;
-        case 'register':
-          setSucceeded('You have successfully registered your email address!');
-          break;
-      }
-    } else {
-      if (jsonResponse.error === 'Invalid API key') {
-        setError('Invalid API key. Please check your API key and try again.');
-      } else if (jsonResponse.error === 'API key does not have access to GPT-4') {
-        setError('Your API key does not have access to GPT-4. We have connected your API key with GPT-3. If you feel this is an error please email contact@textaireply.com.');
+      // Handle the response
+      if (response.ok) {
+        setSucceeded(jsonResponse.message);
+      } else if (jsonResponse.error) {
+        setError(jsonResponse.error);
       } else {
         setError('An error occurred while processing your action. Please try again later.');
       }
+    } catch (err) {
+      setError('An error occurred while processing your action. Please try again later.');
     }
+    
     setProcessing(false);
   };
 
