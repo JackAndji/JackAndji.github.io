@@ -94,7 +94,7 @@ const CheckoutForm = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ paymentMethodId, customerId: customerId, tierObj: selectedTier.value, phone: phone ? btoa(phone) : undefined, email: email ? btoa(email) : undefined }),
+      body: JSON.stringify({ paymentMethodId, customerId: customerId, tierObj: selectedTier.value, phone: btoa(phone), name: btoa(nameOnCard), email: email ? btoa(email) : undefined }),
     });
 
     const { error } = await response.json();
