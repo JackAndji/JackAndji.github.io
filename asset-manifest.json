@@ -1,9 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.71a28d18.css",
-    "main.js": "/static/js/main.b2606171.js",
+    "main.js": "/static/js/main.f7330940.js",
     "static/js/787.69e172c4.chunk.js": "/static/js/787.69e172c4.chunk.js",
     "static/media/optin_fun.webp": "/static/media/optin_fun.08d38a79d8b714d2a02a.webp",
+    "static/media/open_gpt_4.webp": "/static/media/open_gpt_4.0b29f49f53d5ede4f225.webp",
     "static/media/text_message.webp": "/static/media/text_message.8c197c95b2e161d3c3f7.webp",
     "static/media/AI-responding_text-message.webp": "/static/media/AI-responding_text-message.6e38464d02c40013f2a8.webp",
     "static/media/AI-powered_chatbot.webp": "/static/media/AI-powered_chatbot.0760f68025d8b5a65c63.webp",
@@ -17,11 +18,11 @@
     "static/media/customer_service.webp": "/static/media/customer_service.d281e60f3f50d1081338.webp",
     "index.html": "/index.html",
     "main.71a28d18.css.map": "/static/css/main.71a28d18.css.map",
-    "main.b2606171.js.map": "/static/js/main.b2606171.js.map",
+    "main.f7330940.js.map": "/static/js/main.f7330940.js.map",
     "787.69e172c4.chunk.js.map": "/static/js/787.69e172c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.71a28d18.css",
-    "static/js/main.b2606171.js"
+    "static/js/main.f7330940.js"
   ]
 }
