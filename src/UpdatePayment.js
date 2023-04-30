@@ -5,7 +5,6 @@ import { Typography } from '@mui/material';
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
-      color: '#32325d',
       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
       fontSmoothing: 'antialiased',
       fontSize: '16px',
@@ -43,6 +42,24 @@ const labelStyle = {
   marginBottom: '10px',
 };
 
+const textInputStyles = {
+  position: 'relative',
+  fontSize: '14px',
+  letterSpacing: '.01rem',
+  marginTop: '0 !important',
+  marginBottom: '0 !important',
+  paddingInline: '8px',
+  marginLeft: '0',
+  background: '#FFFFFF',
+  border: '1px solid #CACACA',
+  borderRadius: '5px',
+  lineHeight: '25px',
+  height: '35px',
+  outline: 'none',
+  width: '100%',
+  boxSizing: 'border-box',
+};
+
 const buttonStyle = {
   backgroundColor: '#6772e5',
   color: '#ffffff',
@@ -70,6 +87,8 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [succeeded, setSucceeded] = useState(null);
+  const [nameOnCard, setNameOnCard] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const stripe = useStripe();
   const elements = useElements();
 
@@ -84,6 +103,14 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
   
     const { customerId } = await response.json();
     return customerId;
+  };
+
+  const handleNameChange = (event) => {
+    setNameOnCard(event.target.value);
+  };
+
+  const handlePostalCodeChange = (event) => {
+    setPostalCode(event.target.value);
   };
 
   const handleChange = (event) => {
@@ -117,6 +144,10 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
     const { paymentMethod, error } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
+      billing_details: {
+        name: nameOnCard,
+        postal_code: postalCode,
+      },
     });
   
     if (error) {
@@ -129,6 +160,7 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!nameOnCard || !postalCode) return;
   
     setProcessing(true);
   
@@ -145,6 +177,8 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
   
     if (updated) {
       setSucceeded('Your payment information has been updated successfully.');
+      setNameOnCard('');
+      setPostalCode('');
   
       // Clear the card fields
       elements.getElement(CardElement).clear();
@@ -159,10 +193,38 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
       <p style={textStyle}>Update your payment information for phone number: {phoneNumber}</p>
       <p style={textStyle}>If this is not your phone number, please text "PAYMENT" to 12018449959, and use the link provided to update your payment information.</p>
       <p style={textStyle}>If you are still getting the wrong number, please email contact@textaireply.com.</p>
+
+      <div style={formGroupStyle}>
+        <label htmlFor="name">Name on Card:</label>
+        <input
+          type="text"
+          id="name"
+          value={nameOnCard}
+          style={textInputStyles}
+          onChange={handleNameChange}
+          placeholder="Name on Card"
+          required
+        />
+      </div>
+
       <div style={formGroupStyle}>
         <label style={labelStyle}>Card Information</label>
         <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
       </div>
+
+      <div style={formGroupStyle}>
+        <label htmlFor="zipcode">Billing Postal Code:</label>
+        <input
+          type="text"
+          id="zipcode"
+          value={postalCode}
+          style={textInputStyles}
+          onChange={handlePostalCodeChange}
+          placeholder="Billing Postal Code"
+          required
+        />
+      </div>
+
       {error && <div style={errorMessageStyle}>{error}</div>}
       {succeeded && <div style={succeededMessageStyle}>{succeeded}</div>}
       <button disabled={!stripe || processing || succeeded} style={buttonStyle}>

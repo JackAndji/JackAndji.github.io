@@ -16,6 +16,8 @@ const CheckoutForm = () => {
   const [email, setEmail] = useState('');
   const [selectedTier, setSelectedTier] = useState({});
   const [prices, setPrices] = useState([]);
+  const [nameOnCard, setNameOnCard] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const stripe = useStripe();
   const elements = useElements();
 
@@ -25,7 +27,7 @@ const CheckoutForm = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ phone: phone ? btoa(phone) : undefined, email: email ? btoa(email) : undefined }),
+      body: JSON.stringify({ phone: btoa(phone), email: email ? btoa(email) : undefined, name: btoa(nameOnCard) }),
     });
   
     const { customerId } = await response.json();
@@ -58,6 +60,10 @@ const CheckoutForm = () => {
     const { paymentMethod, error } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
+      billing_details: {
+        name: nameOnCard,
+        postal_code: postalCode,
+      },
     });
   
     if (error) {
@@ -70,7 +76,7 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!phone) return;
+    if (!phone || !nameOnCard || !postalCode) return;
 
     setProcessing(true);
 
@@ -98,7 +104,10 @@ const CheckoutForm = () => {
       setError(error);
     } else {
       setSucceeded('Welcome to TextAIReply! You should be receiving a text message shortly to opt-in.');
+      setNameOnCard('');
+      setPostalCode('');
       setPhone('');
+      setEmail('');
       setSelectedTier({
         id: prices.data[0].id,
         name: prices.data[0].product.name,
@@ -122,6 +131,14 @@ const CheckoutForm = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setNameOnCard(event.target.value);
+  };
+
+  const handlePostalCodeChange = (event) => {
+    setPostalCode(event.target.value);
   };
 
   const handleTierChange = (selectedOption) => {
@@ -163,6 +180,7 @@ const CheckoutForm = () => {
     display: 'flex',
     flexDirection: 'column',
     width: '400px',
+    maxWidth: '100%',
     margin: '0 auto',
   };
 
@@ -197,7 +215,7 @@ const CheckoutForm = () => {
     marginBottom: '20px',
   }
 
-  const emailInputStyles = {
+  const textInputStyles = {
     position: 'relative',
     fontSize: '14px',
     letterSpacing: '.01rem',
@@ -211,7 +229,7 @@ const CheckoutForm = () => {
     lineHeight: '25px',
     height: '35px',
     outline: 'none',
-    width: '300px',
+    width: '100%',
     boxSizing: 'border-box',
   };
 
@@ -234,7 +252,7 @@ const CheckoutForm = () => {
           type="email"
           id="email"
           value={email}
-          style={emailInputStyles}
+          style={textInputStyles}
           onChange={handleEmailChange}
           placeholder="Email Address"
         />
@@ -251,9 +269,36 @@ const CheckoutForm = () => {
       </div>
 
       <div style={formGroupStyle}>
+        <label htmlFor="name">Name on Card:</label>
+        <input
+          type="text"
+          id="name"
+          value={nameOnCard}
+          style={textInputStyles}
+          onChange={handleNameChange}
+          placeholder="Name on Card"
+          required
+        />
+      </div>
+
+      <div style={formGroupStyle}>
         <label style={labelStyle}>Card Information</label>
         <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
       </div>
+
+      <div style={formGroupStyle}>
+        <label htmlFor="zipcode">Billing Postal Code:</label>
+        <input
+          type="text"
+          id="zipcode"
+          value={postalCode}
+          style={textInputStyles}
+          onChange={handlePostalCodeChange}
+          placeholder="Billing Postal Code"
+          required
+        />
+      </div>
+
       {error && <div style={errorMessageStyle}>{error}</div>}
       {succeeded && <div style={succeededMessageStyle}>{succeeded}</div>}
       <button disabled={!stripe || processing || succeeded} style={buttonStyle}>
