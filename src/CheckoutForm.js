@@ -43,15 +43,18 @@ const CheckoutForm = () => {
     });
 
     const { prices } = await response.json();
-    setPrices(prices.data);
+
+    // Sort prices array by price, lowest to highest
+    const sortedPrices = prices.data.sort((a, b) => a.unit_amount - b.unit_amount);
+    setPrices(sortedPrices);
 
 
     // Set the initial selected tier to the first price ID in the prices array
-    if (prices.data.length > 0) {
+    if (sortedPrices.length > 0) {
       setSelectedTier({
-        id: prices.data[0].id,
-        name: prices.data[0].product.name,
-        interval: prices.data[0].recurring.interval,
+        id: sortedPrices[0].id,
+        name: sortedPrices[0].product.name,
+        interval: sortedPrices[0].recurring.interval,
       });
     }
   };
@@ -149,14 +152,24 @@ const CheckoutForm = () => {
     fetchPrices();
   }, []);
 
-  const tierOptions = prices.map((price) => ({
-    label: `${price.product.name} - ${(price.unit_amount / 100).toFixed(2)} / ${price.recurring.interval_count !== 1 ? price.recurring.interval_count : ''} ${price.recurring.interval}`,
-    value: {
-      id: price.id,
-      name: price.product.name,
-      interval: price.recurring.interval_count,
-    },
-  }));
+  const tierOptions = prices.map((price, index) => {
+  let productName = price.product.name;
+
+    // Check if this product name matches the previous one in the sorted prices array
+    if (index > 0 && prices[index - 1].product.name === productName) {
+      productName += " w/ GPT-4";
+    }
+
+    return {
+      label: `${productName} - ${(price.unit_amount / 100).toFixed(2)} / ${price.recurring.interval_count !== 1 ? price.recurring.interval_count : ''} ${price.recurring.interval}`,
+      value: {
+        id: price.id,
+        name: productName,
+        interval: price.recurring.interval_count,
+      },
+    };
+  });
+
 
   const CARD_ELEMENT_OPTIONS = {
     style: {
