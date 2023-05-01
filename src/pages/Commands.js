@@ -44,7 +44,7 @@ function Commands() {
   const [encodedPhoneNumber, setEncodedPhoneNumber] = useState(null);
   const [email, setEmail] = useState('');
   const [apiKey, setApiKey] = useState('');
-  const [apiVersion, setApiVersion] = useState('3');
+  const [apiVersion, setApiVersion] = useState(false);
   const [action, setAction] = useState('');
   const [error, setError] = useState(null);
   const [succeeded, setSucceeded] = useState(null);
@@ -205,8 +205,8 @@ function Commands() {
             exclusive
             onChange={(e, value) => setApiVersion(value)}
           >
-            <ToggleButton value="3">GPT-3.5 Turbo</ToggleButton>
-            <ToggleButton value="4">GPT-4</ToggleButton>
+            <ToggleButton value={false}>GPT-3.5 Turbo</ToggleButton>
+            <ToggleButton value={true}>GPT-4</ToggleButton>
           </ToggleButtonGroup>
         </>
       );
