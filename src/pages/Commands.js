@@ -14,6 +14,7 @@ const formStyle = {
   display: 'flex',
   flexDirection: 'column',
   width: '400px',
+  maxWidth: '100%',
   margin: '0 auto',
 };
 
