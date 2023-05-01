@@ -123,9 +123,15 @@ const HowItWorks = () => {
     {
       title: 'Enjoy Our Free Tier',
       description: (
+        <>
         <Typography>
-          Experience AIReply without any commitment. Our free tier offers 10 text message responses per week, no signup required. Give it a try and discover the benefits of AI-powered texting. If you find AIReply useful, you can always upgrade to one of our premium plans to access increased messaging limits and remove the weekly restriction. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, ensuring that everyone can take advantage of the power of AI-driven communication.
+          Experience AIReply without any commitment or signup. Our free tier offers 10 text message responses per week – simply text 12018449959 to get started. You'll need to opt-in with your first text response, but once you've done that, you can enjoy AI-powered texting without signing up for anything. Discover the benefits of AI-driven communication at your fingertips.
         </Typography>
+        <br/>
+        <Typography>
+          If you find AIReply useful and want to access more features, you can always upgrade to one of our premium plans. Our tiered pricing structure is designed to accommodate a wide range of needs and budgets, providing increased messaging limits and removing the weekly restriction. Take advantage of the power of AI-driven communication tailored to your needs.
+        </Typography>
+        </>
       ),
       image: image5,
     },
