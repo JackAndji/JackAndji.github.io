@@ -146,7 +146,9 @@ const UpdatePayment = ({ encodedPhoneNumber, phoneNumber, action }) => {
       card: elements.getElement(CardElement),
       billing_details: {
         name: nameOnCard,
-        postal_code: postalCode,
+        address: {
+          postal_code: postalCode,
+        }
       },
     });
   
